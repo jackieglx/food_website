@@ -15,11 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
 from . import views
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
-from django.urls import  path
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home')
-]
+    path('', views.home, name='home'),
+    # 含义是把网站中以 /accounts/ 开头的所有请求交给 accounts 应用处理。
+    path('accounts/', include('accounts.urls')),
+
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
