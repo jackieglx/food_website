@@ -95,8 +95,7 @@ class UserProfile(models.Model):
     user = OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='users/profile_pictures', blank=True, null=True)
     cover_photo = models.ImageField(upload_to='users/cover_photos', blank=True, null=True)
-    address_line_1 = models.CharField(max_length=50, blank=True, null=True)
-    address_line_2 = models.CharField(max_length=50, blank=True, null=True)
+    address = models.CharField(max_length=250, blank=True, null=True)
     country = models.CharField(max_length=15, blank=True, null=True)
     state = models.CharField(max_length=15, blank=True, null=True)
     city = models.CharField(max_length=15, blank=True, null=True)
@@ -109,6 +108,9 @@ class UserProfile(models.Model):
     # 作用是定义当你打印或显示 UserProfile 对象时，返回什么内容。在这种情况下，它返回关联用户的电子邮件地址。
     def __str__(self):
         return self.user.email
+
+    # def full_address(self):
+    #     return f'{self.address_line_1}, {self.address_line_2}'
 
 
 
